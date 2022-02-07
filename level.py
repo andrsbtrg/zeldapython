@@ -4,6 +4,7 @@ from tile import Tile
 from player import Player
 from debug import debug
 import support
+from random import choice
 
 class Level:
 	def __init__(self):
@@ -33,8 +34,10 @@ class Level:
 		}
 
 		graphics = {
-			'grass': support.import_folder('../graphics/Grass')
+			'grass': support.import_folder('../graphics/grass'),
+			'objects': support.import_folder('../graphics/objects')
 		}
+
 		for style, layout in layout.items():
 			for row_index,row in enumerate(layout):
 				for col_index, col in enumerate(row):
@@ -46,11 +49,14 @@ class Level:
 							Tile((x,y),[self.obstacle_sprites],sprite_type='invisible')
 						if style == 'grass':
 							#
-							
-							pass
+							random_grass_image = choice(graphics['grass'])
+							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'grass', random_grass_image)
+
 						if style == 'object':
 							#
-							pass
+							surf = graphics['objects'][int(col)]
+							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
+
 						
 		self.player = Player((2000,1430),groups=[self.visible_sprites],obstacle_sprites= self.obstacle_sprites)
 
