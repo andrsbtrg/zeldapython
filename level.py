@@ -23,10 +23,6 @@ class Level:
 		"""Calculates the coordinates of the map based on SETTINGS
 		"""
 
-			# 	if col == 'x': # obstacle
-			# 		Tile((x,y),[self.visible_sprites,self.obstacle_sprites])
-			# 	if col == 'p': # player
-			# 		self.player = Player(pos=(x,y),groups=[self.visible_sprites],obstacle_sprites= self.obstacle_sprites)
 		layout = {
 			'boundary': support.import_csv_layout('../map/map_FloorBlocks.csv'),
 			'grass': support.import_csv_layout('../map/map_Grass.csv'),
@@ -58,9 +54,7 @@ class Level:
 							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
 
 						
-		self.player = Player((2000,1430),groups=[self.visible_sprites],obstacle_sprites= self.obstacle_sprites)
-
-
+		self.player = Player((1996,1220),groups=[self.visible_sprites],obstacle_sprites= self.obstacle_sprites)
 
 
 	def run(self):
