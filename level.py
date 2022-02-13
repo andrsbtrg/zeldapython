@@ -5,6 +5,7 @@ from player import Player
 from debug import debug
 import support
 from random import choice
+from weapon import Weapon
 
 class Level:
 	def __init__(self):
@@ -18,6 +19,9 @@ class Level:
 
 		# sprite setup
 		self.create_map()
+
+	def create_attack(self):
+		Weapon(self.player, [self.visible_sprites])
 
 	def create_map(self):
 		"""Calculates the coordinates of the map based on SETTINGS
@@ -54,7 +58,7 @@ class Level:
 							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
 
 						
-		self.player = Player((1996,1220),groups=[self.visible_sprites],obstacle_sprites= self.obstacle_sprites)
+		self.player = Player((1996,1220),groups=[self.visible_sprites],obstacle_sprites = self.obstacle_sprites, create_attack = self.create_attack)
 
 
 	def run(self):
