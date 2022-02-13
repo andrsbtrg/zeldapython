@@ -9,14 +9,19 @@ class Player(pygame.sprite.Sprite):
 		self.image = pygame.image.load('../graphics/test/player.png').convert_alpha()
 		self.rect = self.image.get_rect(topleft = pos)
 		self.hitbox = self.rect.inflate(0,-26)
-
+		# movement
 		self.direction = pygame.math.Vector2() #default is 0
 		self.speed = 5
+		self.attacking = False
+		self.attack_cooldown = 400
+		self.attack_time = None
 
 		self.obstacle_sprites = obstacle_sprites
 
 	def input(self):
 		keys = pygame.key.get_pressed()
+
+		## Movement input
 		# y direction
 		if keys[pygame.K_UP]:
 			self.direction.y = -1
@@ -31,6 +36,18 @@ class Player(pygame.sprite.Sprite):
 			self.direction.x = 1
 		else:
 			self.direction.x = 0
+
+		## attack input
+		if keys[pygame.K_SPACE] and not self.attacking:
+			self.attacking = True
+			self.attack_time = pygame.time.get_ticks()
+			print('attack')
+
+		## magic input
+		if keys[pygame.K_LCTRL] and not self.attack_time:
+			self.attacking = True
+			self.attack_time = pygame.time.get_ticks()
+			print('magic')
 
 	def move(self,speed):
 		# Normalizing the vector 
@@ -62,9 +79,24 @@ class Player(pygame.sprite.Sprite):
 					if self.direction.y < 0: # moving up
 						self.hitbox.top = sprite.hitbox.bottom # move the player to the top of the obstacle
 
+
+	def cooldowns(self):
+		"""Timer that runds on the update method
+		"""
+		current_time = pygame.time.get_ticks()
+
+		# simple timer
+		if self.attacking:
+			if current_time - self.attack_time >= self.attack_cooldown:
+				self.attacking = False
+		
+
+
+
 	def update(self):
 		self.input()
 		self.move(self.speed)
+		self.cooldowns()
 		debug(self.rect.center)
 
 
