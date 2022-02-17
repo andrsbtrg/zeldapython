@@ -17,11 +17,14 @@ class Level:
 		self.visible_sprites = YSortCameraGroup()
 		self.obstacle_sprites = pygame.sprite.Group()
 
+		# attack sprites
+		self.current_attack = None
+
 		# sprite setup
 		self.create_map()
 
 	def create_attack(self):
-		Weapon(self.player, [self.visible_sprites])
+		self.current_attack = Weapon(self.player, [self.visible_sprites])
 
 	def create_map(self):
 		"""Calculates the coordinates of the map based on SETTINGS
@@ -58,9 +61,12 @@ class Level:
 							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
 
 						
-		self.player = Player((1996,1220),groups=[self.visible_sprites],obstacle_sprites = self.obstacle_sprites, create_attack = self.create_attack)
+		self.player = Player((1996,1220),groups=[self.visible_sprites],obstacle_sprites = self.obstacle_sprites, create_attack = self.create_attack, destroy_attack = self.destroy_attack)
 
-
+	def destroy_attack(self):
+		if self.current_attack:
+			self.current_attack.kill()
+		self.current_attack = None
 	def run(self):
 		# update and draw the game
 		self.visible_sprites.custom_draw(self.player)
