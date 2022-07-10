@@ -1,3 +1,9 @@
+# game files
+/graphics
+/map
+/zelda
+/audio
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
