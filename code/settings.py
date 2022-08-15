@@ -1,8 +1,10 @@
 # game setup
-WIDTH    = 1280	
-HEIGTH   = 720
+WIDTH    = 1920	
+HEIGTH   = 1080
 FPS      = 60
 TILESIZE = 64
+
+# ui
 
 # weapons 
 weapon_data = {

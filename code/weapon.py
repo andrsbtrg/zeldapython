@@ -4,6 +4,7 @@ import pygame
 class Weapon(pygame.sprite.Sprite):
     def __init__(self,player,groups):
         super().__init__(groups)
+        # get the current direction of the player. Use split to remove the _idle, _etc
         direction = player.status.split('_')[0]
 
         # graphic
