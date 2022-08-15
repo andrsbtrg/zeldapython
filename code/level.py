@@ -30,6 +30,11 @@ class Level:
 	def create_attack(self):
 		self.current_attack = Weapon(self.player, [self.visible_sprites])
 
+	def create_magic(self, style, strength, cost):
+		print(style)
+		print(strength)
+		print(cost)
+
 	def create_map(self):
 		"""Calculates the coordinates of the map based on SETTINGS
 		"""
@@ -65,10 +70,13 @@ class Level:
 							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
 
 						
-		self.player = Player((1996,1220),groups=[self.visible_sprites],
+		self.player = Player(
+			(1996,1220),
+			groups = [self.visible_sprites],
 			obstacle_sprites = self.obstacle_sprites, 
 			create_attack = self.create_attack, 
-			destroy_attack = self.destroy_attack)
+			destroy_attack = self.destroy_attack,
+			create_magic = self.create_magic,)
 
 	def destroy_attack(self):
 		if self.current_attack:
